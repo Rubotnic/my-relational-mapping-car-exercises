@@ -38,7 +38,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
         appUserRager = appUserDao.save(appUserRager);
 
-        Address addressRager = new Address(0,"Götteborg", "Gata 1", "212 21");
+        Address addressRager = new Address("Götteborg","Gata 3","121 12");
         entityManager.persist(addressRager);
         appUserRager.setAddress(addressRager);
 
@@ -49,19 +49,19 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
 
 
-        AppUser appUserStefan = new AppUser("stefan@mail.com", "Stefan Stefansson", "qwerty");
-        entityManager.persist(appUserStefan);
-        System.out.println(appUserStefan);
-
-        appUserStefan = appUserDao.save(appUserStefan);
-
-        Address addressStefan = new Address(0,"Stökholm", "Gata 2", "313 12");
-        entityManager.persist(addressStefan);
-        appUserStefan.setAddress(addressStefan);
-
-        entityManager.flush();
-
-        System.out.println("Stefan = " + appUserStefan);
+//        AppUser appUserStefan = new AppUser("stefan@mail.com", "Stefan Stefansson", "qwerty");
+//        entityManager.persist(appUserStefan);
+//        System.out.println(appUserStefan);
+//
+//        appUserStefan = appUserDao.save(appUserStefan);
+//
+//        Address addressStefan = new Address(0,"Stökholm", "Gata 2", "313 12");
+//        entityManager.persist(addressStefan);
+//        appUserStefan.setAddress(addressStefan);
+//
+//        entityManager.flush();
+//
+//        System.out.println("Stefan = " + appUserStefan);
 
 
     }

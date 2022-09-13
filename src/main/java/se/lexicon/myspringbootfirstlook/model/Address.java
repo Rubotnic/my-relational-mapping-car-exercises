@@ -3,6 +3,8 @@ package se.lexicon.myspringbootfirstlook.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+
+// ONE-TO-ONE
 @Entity
 @Table(name = "addresses")
 public class Address {
@@ -18,18 +20,16 @@ public class Address {
     @Column(nullable = false, length = 100)
     private String city;
 
-//    @OneToMany()
-//    @JoinColumn(name = "address_id")
-//    private AppUser appUser;
+    @OneToOne(mappedBy = "address")
+    private AppUser appUser;
 
-    public Address() {
-    }
+    protected Address() {}
 
-    public Address(int id, String city, String street, String zipCode) {
-        this.userId = id;
-        this.city = city;
+    public Address(int userId, String street, String zipCode, String city) {
+        this.userId = userId;
         this.street = street;
         this.zipCode = zipCode;
+        this.city = city;
     }
 
     public Address(String city, String street, String zipCode) {
@@ -37,6 +37,7 @@ public class Address {
         this.street = street;
         this.zipCode = zipCode;
     }
+
 
     public int getUserId() {
         return userId;
@@ -70,6 +71,14 @@ public class Address {
         this.city = city;
     }
 
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,7 +98,6 @@ public class Address {
                 "userId=" + userId +
                 ", street='" + street + '\'' +
                 ", zipCode='" + zipCode + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+                ", city='" + city + '\'' + '}';
     }
 }

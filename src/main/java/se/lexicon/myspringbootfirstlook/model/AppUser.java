@@ -1,7 +1,12 @@
 package se.lexicon.myspringbootfirstlook.model;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+// ----- ONE-TO-MANY ------
 
 @Entity
 @Table(name = "appusers")
@@ -20,20 +25,23 @@ public class AppUser {
     @Column(length = 100, nullable = false)
     private String password;
 
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "userid")
     private Address address;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+    private Set<Car> ownedCars;
 
 
     protected AppUser() {}
 
-
-    public AppUser(int userId, String email, String name, String password) {
+    public AppUser(int userId, String email, String name, String password, Address address, Set<Car> ownedCars) {
         this.userId = userId;
         this.email = email;
         this.name = name;
         this.password = password;
+        this.address = address;
+        this.ownedCars = ownedCars;
     }
 
     public AppUser(String email, String name, String password) {
@@ -42,12 +50,6 @@ public class AppUser {
         this.password = password;
     }
 
-    public AppUser(String email, String name, String password, Address address) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.address = address;
-    }
 
     public int getUserId() {
         return userId;
@@ -84,8 +86,17 @@ public class AppUser {
     public Address getAddress() {
         return address;
     }
-    public void setAddress(Address address){
+
+    public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Set<Car> getOwnedCars() {
+        return ownedCars;
+    }
+
+    public void setOwnedCars(Set<Car> ownedCars) {
+        this.ownedCars = ownedCars;
     }
 
 
@@ -111,5 +122,8 @@ public class AppUser {
                 ", password='" + password + '\'' +
                 ", address=" + address +
                 '}';
+    }
+
+    private class list<T> {
     }
 }
